@@ -1,17 +1,15 @@
-record_visituire 'vistis'
-
-class CLI
+class CLI 
   def initialize
     @visit_log = VisitLog.new
   end
 
-  def start
+  def start 
     show_welcome_message
-    
+
     loop do
       show_menu
       choice = gets.chomp.to_i
-      
+
       case choice
       when 1
         record_visit
@@ -20,9 +18,6 @@ class CLI
       when 3
         show_all_visits
       when 4
-        puts "\nThank you for using Visitor Logger! Goodbye!"
-        break
-      else
         puts "\nInvalid option. Please try again."
       end
     end
@@ -31,9 +26,9 @@ class CLI
   private
 
   def show_welcome_message
-    puts "\n=== Welcome to Visitor Logger ==="
+    puts "\n Welcome to Visitor Logger"
     puts "Track your visitors easily!"
-    puts "================================"
+    puts "============================"
   end
 
   def show_menu
@@ -45,36 +40,36 @@ class CLI
     print "\nEnter your choice: "
   end
 
-  def record_visit
+  def record_visit 
     print "\nEnter visitor name: "
     name = gets.chomp
-    
-    print "Enter visit purpose: "
+
+    print "\nEnter visit purpose: "
     purpose = gets.chomp
-    
+
     visitor = Visitor.new(name, purpose)
     @visit_log.add_visit(visitor)
     display_visitor(visitor)
   end
 
   def find_visit
-    print "\nEnter visitor ID: "
+    print "/nEnter visitor ID: "
     id = gets.chomp.to_i
-    
+
     visitor = @visit_log.find_visit(id)
     if visitor
       display_visitor(visitor)
     else
       puts "\nNo visitor found with ID: #{id}"
-    end
+    end 
   end
 
   def show_all_visits
     visits = @visit_log.all_visits
-    
+
     if visits.empty?
       puts "\nNo visits recorded yet."
-    else
+    else 
       puts "\n=== All Visits ==="
       visits.each do |visitor|
         display_visitor(visitor)
@@ -85,9 +80,9 @@ class CLI
 
   def display_visitor(visitor)
     puts "\nVisitor Details:"
-    puts "ID: #{visitor.id}"
-    puts "Name: #{visitor.name}"
-    puts "Purpose: #{visitor.purpose}"
-    puts "Time: #{visitor.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
+    puts "\nID: #{visitor.id}"
+    puts "\nName: #{visitor.name}"
+    puts "\nPurpose: #{visitor.purpose}" 
+    puts "\nTime: #{visitor.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
   end
 end
